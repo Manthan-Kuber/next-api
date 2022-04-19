@@ -31,9 +31,18 @@ function CommentsPage() {
     fetchComments();
   };
 
-  const updateComment = async(commentId) => {
-    const response = await fetch(``)
-  }
+  const updateComment = async (commentId) => {
+    const response = await fetch(`/api/comments/${commentId}`, {
+      method: "PATCH",
+      body: JSON.stringify({ comment: comment }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await response.json();
+    fetchComments();
+    console.log(data);
+  };
 
   return (
     <>
@@ -50,7 +59,7 @@ function CommentsPage() {
           <button onClick={() => deleteComment(comment.id)}>
             Delete Comment
           </button>
-          <button oncClick={() => updateComment(comment.id)}>
+          <button onClick={() => updateComment(comment.id)}>
             Update Comment
           </button>
         </div>
